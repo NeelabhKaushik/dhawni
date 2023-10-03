@@ -1,0 +1,17 @@
+MDScreen:
+    name: "donate_us"
+    md_bg_color:56/255,40/255,81/255,1
+
+    MDFloatLayout:
+        md_bg_color: 56/255,40/255,81/255,1
+        MDIconButton:
+            icon : "arrow-left"
+            user_font_size : "35sp"
+            pos_hint: {'center_y': .95}
+            on_release: 
+                root.manager.transition.direction = "right"
+                root.manager.current = "home"
+        MDLabel:
+            text: 'back'
+            font_size: "18sp"
+            pos_hint: {'center_x': 0.615,'center_y': 0.949}

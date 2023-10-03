@@ -1,0 +1,94 @@
+MDScreen:
+    name: "braille2"
+    md_bg_color: rgba(103, 74, 179)
+    MDBoxLayout:
+        id: box
+        adaptive_size: True
+        spacing: "56dp"
+        pos_hint: {"center_x": .2, "center_y": .5}
+    MDFloatLayout:
+        MDIconButton:
+            icon: "arrow-left"
+            user_font_size: "35sp"
+            pos_hint: {'center_y': .95}
+            on_release: 
+                root.manager.transition.direction = "right"
+                root.manager.current = "home"
+        MDLabel:
+            text: 'back'
+            font_size: "18sp"
+            pos_hint: {'center_x': 0.615,'center_y': 0.949}
+
+        MDTextField:
+            id: textt
+            icon_left: 'key-variant'
+            icon_right: 'location-enter'
+            size_hint: 0.9,0.2
+            icon_left_color: rgba(144, 117, 216)
+            icon_right_color: rgba(144, 117, 216)
+            line_color_focus: 0,0,0,0
+            font_size: 50
+            required: True
+            foreground_color: 0,0,0,0
+            pos_hint: {'center_x': 0.5,'center_y': 0.2}
+            hint_text: 'Type your text here'
+            halign: "left"
+            on_text: app.textToBraille()
+        MagicButton:
+            id: happy
+            text: ""
+            font_name: "braille"
+            font_style:"H6"
+            text_color: 0,0,0,0
+            size_hint: 0.8, 0.15
+            scroll_y: True
+            
+            pos_hint: {'center_x': 0.5,'center_y': 0.8}
+            background_color: 0,0,0,0
+            font_size: "30sp"
+            multi_line: True
+            magic_speed: 0.3
+            on_release: 
+            canvas.before:
+                Color:
+                    rgb: rgba(144, 117, 216)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [50]
+
+        MDIconButton:
+            id: speak
+            icon: "volume-source"
+            text: "speak"
+            size_hint: 0.2, 0.1
+            pos_hint: {'center_x': 0.9,'center_y': 0.6}
+            background_color: 1,1,1,0
+            font_size: "18sp"
+            magic_speed: 0.3
+            on_release: app.speak("braille2") 
+            canvas.before:
+                Color:
+                    rgb: rgba(144, 117, 216)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [50]
+
+        MagicButton:
+            id: change
+            text: "braille to text"
+            size_hint: 0.4, 0.05
+            pos_hint: {'center_x': 0.5,'center_y': 0.025}
+            background_color: 1,1,1,0
+            font_size: "18sp"
+            magic_speed: 0.3
+            on_release: 
+                root.manager.current = "braille"
+            canvas.before:
+                Color:
+                    rgb: rgba(144, 117, 216)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [10]

@@ -1,0 +1,120 @@
+#:import Factory kivy.factory.Factory
+
+<CustomSpinnerOption@SpinnerOption>:
+    background_color: rgba(144, 117, 216)
+    background_normal: ""
+
+<MDSpinner@MDSpinner>:
+    size_hint: None, None
+    size: dp(48), dp(48)
+    pos_hint: {'center_x': .5, 'center_y': .5}
+
+
+<MagicButton@MagicBehavior+Button>
+MDScreen:
+    name: "pdf"
+    md_bg_color: rgba(103, 74, 179)
+    #back button
+    MDFloatLayout:
+        md_bg_color: rgba(103, 74, 179)
+
+        MDIconButton:
+            icon: "arrow-left"
+            user_font_size: "35sp"
+            pos_hint: {'center_y': .95}
+            on_release: 
+                root.manager.transition.direction = "right"
+                root.manager.current = "home"
+        MDLabel:
+            text: 'back'
+            font_size: "18sp"
+            pos_hint: {'center_x': 0.615,'center_y': 0.949}  
+  
+        Image:
+            source: "images/pdff.png"
+            pos_hint: {'center_x': 0.5,'center_y': 0.85}
+            size_hint: 0.4, 0.4
+        MDLabel:
+            text: "Pdf To Audio"
+            halign: "center"
+            pos_hint: {'center_y': .7}
+            font_size: "30sp"
+        MagicButton:
+            text: "Choose file"
+            size_hint: 0.6, 0.08
+            pos_hint: {'center_x': 0.5,'center_y': 0.60}
+            background_color: 1,1,1,0
+            font_size: "18sp"
+            magic_speed: 0.3
+            on_release: 
+                self.grow()
+                app.file_chooser()
+            canvas.before:
+                Color:
+                    rgb: rgba(163, 72, 166)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [50]
+        
+
+        MDLabel:
+            id: filename
+            text: "No file selected yet!."
+            halign: "center"
+            pos_hint: {'center_y': 0.45}
+            font_size: "20sp"
+            
+        Spinner:
+            id: mellon
+            text: "select lang"
+            values: ["Select a Language","English","Hindi","Gujrati", "Marathi","Tamil","Telgu", "Punjabi", "Bengali","Urdu","Kannad","Odia","Assamese"]
+            background_normal: ""
+            option_cls: Factory.get('CustomSpinnerOption') 
+            pos_hint: {'center_x': 0.5,'center_y': 0.35}
+            size_hint: None, None
+            size: 500,90
+            background_color: rgba(163, 72, 166)
+            text_autoupdate: True
+            on_text: app.pdf_lang(mellon.text)
+            
+
+        MagicButton:
+            text: "Download"
+            size_hint: 0.6, 0.08
+            pos_hint: {'center_x': 0.5,'center_y': 0.25}
+            background_color: 1,1,1,0
+            font_size: "18sp"
+            magic_speed: 0.3
+            on_release: 
+                app.pdf_audio()
+            canvas.before:
+                Color:
+                    rgb: rgba(163, 72, 166)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [50]
+        MDSpinner:
+            id: hey
+            size_hint: None, None
+            size: dp(48), dp(48)
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            active: False
+        MagicButton:
+            text: "Open"
+            size_hint: 0.6, 0.08
+            pos_hint: {'center_x': 0.5,'center_y': 0.15}
+            background_color: 1,1,1,0
+            font_size: "18sp"
+            magic_speed: 0.3
+            on_release: 
+                app.open_folder()
+            canvas.before:
+                Color:
+                    rgb: rgba(163, 72, 166)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [50]
+

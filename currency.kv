@@ -1,0 +1,49 @@
+MDScreen:
+    name: "currency"
+    md_bg_color: rgba(103, 74, 179)
+
+    MDFloatLayout:
+        MDIconButton:
+            icon: "arrow-left"
+            user_font_size: "35sp"
+            pos_hint: {'center_y': .95}
+            on_release: 
+                root.manager.transition.direction = "right"
+                root.manager.current = "home"
+        MDLabel:
+            text: 'back'
+            font_size: "18sp"
+            pos_hint: {'center_x': 0.615,'center_y': 0.949}
+        Camera:
+            id: camera
+            resolution: (600, 800)
+            pos_hint: {'center_x': 0.5,'center_y': 0.65}
+            play: True
+        MagicButton:
+            text: 'Click to identify currency'
+            size_hint: 0.6, 0.08
+            pos_hint: {'center_x': 0.5,'center_y': 0.35}
+            height: '48dp'
+            on_press: app.capture()
+            background_color: 1,1,1,0
+            font_size: "18sp"
+            magic_speed: 0.3
+            canvas.before:
+                Color:
+                    rgb: rgba(163, 72, 166)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [30]
+        MDLabel:
+            id: curency
+            text: ""
+            size_hint: 0.6, 0.08
+            pos_hint: {'center_x': 0.5,'center_y': 0.25}
+            halign: "center"
+            background_color: 1,1,1,0
+        MDLabel:
+            id: Accuracy
+            text: ""
+            pos_hint: {'center_x': 0.5,'center_y': 0.05}
+            halign: "center"

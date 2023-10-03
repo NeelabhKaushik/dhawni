@@ -1,0 +1,182 @@
+MDScreen:
+    name: "braille"
+    md_bg_color: rgba(103, 74, 179)
+    MDBoxLayout:
+        id: box
+        adaptive_size: True
+        spacing: "56dp"
+        pos_hint: {"center_x": .2, "center_y": .5}
+    MDFloatLayout:
+        MDIconButton:
+            icon: "arrow-left"
+            user_font_size: "35sp"
+            pos_hint: {'center_y': .95}
+            on_release: 
+                root.manager.transition.direction = "right"
+                root.manager.current = "home"
+        MDLabel:
+            text: 'back'
+            font_size: "18sp"
+            pos_hint: {'center_x': 0.615,'center_y': 0.949}
+
+        MDCheckbox:
+            group: 'group1'
+            color: rgba(163, 72, 166) 
+            color_active: rgba(163, 72, 166) 
+            # defining size of check box
+            size_hint: None,None
+            size: "80dp", "80dp"
+            color_inactive: rgba(163, 72, 166) 
+            # giving location
+            pos_hint: {'center_x': .3, 'center_y': .3}
+            md_bg_color: 0, 0, 0, 0
+            on_active: app.text_braille(1,self.active)
+        MDCheckbox:
+            group: 'group2'
+            color: rgba(163, 72, 166) 
+            color_active: rgba(163, 72, 166) 
+            color_inactive: rgba(163, 72, 166) 
+            # defining size of check box
+            size_hint: None,None
+            size: "80dp", "80dp"
+                
+            # giving location
+            pos_hint: {'center_x': .3, 'center_y': .2}
+            md_bg_color: 0, 0, 0, 0
+            on_active: app.text_braille(2,self.active)
+        MDCheckbox:
+            group: 'group3'
+            color: rgba(163, 72, 166) 
+            color_active: rgba(163, 72, 166) 
+            # defining size of check box
+            size_hint: None,None
+            size: "80dp", "80dp"
+            color_inactive: rgba(163, 72, 166) 
+            # giving location
+            pos_hint: {'center_x': .3, 'center_y': .1}
+            md_bg_color: 0, 0, 0, 0
+            on_active: app.text_braille(3,self.active)
+        MDCheckbox:
+            group: 'group4'
+            color_active: rgba(163, 72, 166) 
+            color: rgba(163, 72, 166) 
+            # defining size of check box
+            size_hint: None,None
+            size: "80dp", "80dp"
+            color_inactive: rgba(163, 72, 166)   
+            # giving location
+            pos_hint: {'center_x': .7, 'center_y': .3}
+            md_bg_color: 0, 0, 0, 0
+            on_active: app.text_braille(4,self.active)
+        MDCheckbox:
+            group: 'group5'
+            color: rgba(163, 72, 166) 
+            color_active: rgba(163, 72, 166) 
+            color_inactive: rgba(163, 72, 166) 
+            # defining size of check box
+            size_hint: None,None
+            size: "80dp", "80dp"
+                
+            # giving location
+            pos_hint: {'center_x': .7, 'center_y': .2}
+            md_bg_color: 0, 0, 0, 0
+            on_active: app.text_braille(5,self.active)
+        MDCheckbox:
+            group: 'group6'
+            color: rgba(163, 72, 166) 
+            color_active: rgba(163, 72, 166) 
+            # defining size of check box
+            size_hint: None,None
+            size: "80dp", "80dp"
+            color_inactive: rgba(163, 72, 166) 
+            # giving location
+            pos_hint: {'center_x': .7, 'center_y': .1}
+            md_bg_color: 0, 0, 0, 0
+            on_active: app.text_braille(6,self.active)
+            
+
+    MagicButton:
+        id: textt
+        text: ""
+        font_style:"H6"
+        text_color: 0,0,0,0
+        size_hint: 0.8, 0.15
+        pos_hint: {'center_x': 0.5,'center_y': 0.8}
+        background_color: 0,0,0,0
+        font_size: "18sp"
+        magic_speed: 0.3
+        on_release: 
+        canvas.before:
+            Color:
+                rgb: rgba(163, 72, 166)
+            RoundedRectangle:
+                size: self.size
+                pos: self.pos
+                radius: [50]
+    MagicButton:
+        id: char
+        text: ""
+        size_hint: 0.15, 0.075
+        pos_hint: {'center_x': 0.9,'center_y': 0.2}
+        background_color: 1,1,1,0
+        font_size: "18sp"
+        magic_speed: 0.3
+        on_press: app.on_pres()
+        canvas.before:
+            Color:
+                rgb: rgba(144, 117, 216)
+            RoundedRectangle:
+                size: self.size
+                pos: self.pos
+                radius: [50]
+    MDIconButton:
+        id: "speak"
+        icon: "volume-source"
+        text: "speak"
+        size_hint: 0.2, 0.1
+        pos_hint: {'center_x': 0.9,'center_y': 0.6}
+        background_color: 1,1,1,0
+        font_size: "18sp"
+        magic_speed: 0.3
+        on_press: app.speak("braille1") 
+        canvas.before:
+            Color:
+                rgb: rgba(144, 117, 216)
+            RoundedRectangle:
+                size: self.size
+                pos: self.pos
+                radius: [50]
+    MDIconButton:
+        id: "backspace"
+        icon: "backspace-outline"
+        size_hint: 0.15, 0.075
+        pos_hint: {'center_x': 0.05,'center_y': 0.2}
+        background_color: 1,1,1,0
+        font_size: "18sp"
+        magic_speed: 0.3
+        on_press: app.backspace()
+        canvas.before:
+            Color:
+                rgb: rgba(144, 117, 216)
+            RoundedRectangle:
+                size: self.size
+                pos: self.pos
+                radius: [50]
+
+    MagicButton:
+        id: "change"
+        text: "text to braille"
+        size_hint: 0.4, 0.05
+        pos_hint: {'center_x': 0.5,'center_y': 0.025}
+        background_color: 1,1,1,0
+        font_size: "18sp"
+        magic_speed: 0.3
+        on_release: 
+            root.manager.current = "braille2"
+        canvas.before:
+            Color:
+                rgb: rgba(144, 117, 216)
+            RoundedRectangle:
+                size: self.size
+                pos: self.pos
+                radius: [10]

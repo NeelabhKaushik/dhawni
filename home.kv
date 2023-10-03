@@ -1,0 +1,156 @@
+#: import SlideTransition kivy.uix.screenmanager.SlideTransition
+MDScreen:
+    name: "home"
+    md_bg_color: rgba(103, 74, 179)
+    MDBoxLayout:
+        orientation:'vertical'
+        MDBoxLayout:
+            padding:dp(25)
+            size_hint_y:.2
+            MDFloatLayout:       
+                MDCard:
+                    id: main
+                    focus_behavior: True
+                    md_bg_color: rgba(144, 117, 216)
+                    unfocus_color: rgba(144, 117, 216)
+                    focus_color: rgba(144, 117, 216)
+                    style: "outlined"
+                    pos_hint: {'x':0.01 , 'y': 0.0}
+                    radius:dp(25)
+                    FitImage: 
+                        source: "images/banner.png"
+        Carousel:
+            id: carousel
+            on_current_slide: app.current_slide(self.index)
+            pos_hint: {'x':0.05 , 'y': 0.6}
+            size_hint: .9,.15
+            MDFloatLayout:       
+                MDCard:
+                    id: main
+                    focus_behavior: True
+                    ripple_behavior: True
+                    md_bg_color: rgba(144, 117, 216)
+                    unfocus_color: rgba(144, 117, 216)
+                    focus_color: rgba(144, 117, 216)
+                    style: "outlined"
+                    radius: dp(15)
+                    Image: 
+                        source: "images/pdf.png"
+                        pos_hint: {'x':-0.5, 'y': 0.2}
+                        size_hint: 0.5,0.7
+                    MDLabel:
+                        text:"PDFs turned into language-rich audio recordings, your way!"
+                        font_name: "main"
+                        pos_hint: {'x':0.2 , 'y': 0.2}
+            MDFloatLayout: 
+                MDCard:
+                    id: main
+                    focus_behavior: True
+                    ripple_behavior: True
+                    md_bg_color: rgba(144, 117, 216)
+                    unfocus_color: rgba(144, 117, 216)
+                    focus_color: rgba(144, 117, 216)
+                    style: "outlined"
+                    radius: dp(15)
+                    Image: 
+                        source: "images/braille.png"
+                        pos_hint: {'x':-0.5, 'y': 0.2}
+                        size_hint: 0.5,0.7
+                    MDLabel:
+                        text: "Master Braille with ease - learn with our simple conversion service."
+                        font_name: "main"
+                        pos_hint: {'x':0.2 , 'y': 0.2}
+            MDFloatLayout: 
+                MDCard:
+                    id: main
+                    focus_behavior: True
+                    ripple_behavior: True
+                    md_bg_color: rgba(144, 117, 216)
+                    unfocus_color: rgba(144, 117, 216)
+                    focus_color: rgba(144, 117, 216)
+                    style: "outlined"
+                    radius: dp(15)
+                    Image: 
+                        source: "images/rupee.png"
+                        pos_hint: {'x':-0.5, 'y': 0.2}
+                        size_hint: 0.5,0.7
+                    MDLabel:
+                        text: "Effortlessly identify Indian currency notes through our image-to-audio conversion."
+                        font_name: "main"
+                        pos_hint: {'x':0.2 , 'y': 0.2}
+            MDFloatLayout: 
+                MDCard:
+                    id: main
+                    focus_behavior: True
+                    ripple_behavior: True
+                    md_bg_color: rgba(144, 117, 216)
+                    unfocus_color:rgba(144, 117, 216)
+                    focus_color: rgba(144, 117, 216)
+                    style: "outlined"
+                    radius: dp(15)
+                    Image: 
+                        source: "images/heart.png"
+                        pos_hint: {'x':-0.5, 'y': 0.2}
+                        size_hint: 0.5,0.7
+                    MDLabel:
+                        text: "Visit our website adishiksha "
+                        font_name: "main"
+                        pos_hint: {'x':0.2 , 'y': 0.2}
+        
+        MDGridLayout:
+            size_hint_y: .5
+            cols: 2
+            padding: [dp(15),dp(25),dp(15),dp(25)]
+            spacing: dp(15)
+
+            ElementCard:
+                id: pdf
+                image:"images/pdf.png"
+                text:"PDF to Audio"
+                color: rgba(163, 72, 166)
+                on_release: 
+                    app.btn_pressed("audios/pdf_au.wav")
+                    root.manager.transition = SlideTransition(duration = 0.1)
+                    root.manager.current = "pdf"
+
+            ElementCard:
+                image:"images/braille.png"
+                text:"Braille To Audio"
+                color: rgba(163, 72, 166)
+                on_release: 
+                    app.btn_pressed("audios/br_au.wav")
+                    root.manager.transition.direction = "left"
+                    root.manager.current = "braille"
+            ElementCard:
+                image:"images/rupee.png"
+                text:"Currency Detector"
+                color: rgba(163, 72, 166)
+                on_release: 
+                    app.btn_pressed("audios/note.wav")
+                    root.manager.transition.direction = "left"
+                    root.manager.current = "currency"
+            ElementCard:
+                image:"images/heart.png"
+                text:"Image To Audio"
+                color: rgba(163, 72, 166)
+                on_release: 
+                    app.comming_soon()
+
+<ElementCard@MDCard>:
+    md_bg_color: rgba(163, 72, 166) #37/255, 160/255, 190/25
+    padding:dp(15)
+    spacing:dp(15)
+    radius:dp(25)
+    ripple_behavior: True
+    image:""
+    text:""
+    font_style: "H3"
+    orientation:'vertical'
+    Image:
+        source:root.image
+    MDBoxLayout:
+        orientation:'vertical'
+        MDLabel:
+            halign:"center"
+            text:root.text
+            font_style:"H6"
