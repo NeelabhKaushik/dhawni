@@ -17,11 +17,18 @@ jobs:
           echo "::set-output name=date::$(/bin/date -u "+%y%m%d")"
         shell: bash
 
-      - name: Remove extraheader configuration if it exists
+      - name: Remove extraheader configuration
         run: |
-          if git config --get --global http.https://github.com/.extraheader >/dev/null; then
-            git config --global --unset-all http.https://github.com/.extraheader
-          fi
+          # Create a temporary script to edit the Git config
+          echo '#!/bin/bash' > remove_extraheader.sh
+          echo 'git config --global --unset-all http.https://github.com/.extraheader' >> remove_extraheader.sh
+          chmod +x remove_extraheader.sh
+
+          # Run the script
+          ./remove_extraheader.sh
+
+          # Clean up the script
+          rm remove_extraheader.sh
 
       - name: cache buildozer global directory
         uses: actions/cache@v2
