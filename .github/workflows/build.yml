@@ -1,8 +1,7 @@
-
 name: ci
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -17,6 +16,10 @@ jobs:
         run: |
           echo "::set-output name=date::$(/bin/date -u "+%y%m%d")"
         shell: bash
+
+      - name: Remove extraheader configuration
+        run: |
+          git config --global --unset-all http.https://github.com/.extraheader
 
       - name: cache buildozer global directory
         uses: actions/cache@v2
