@@ -8,47 +8,40 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      # used to cache dependencies with a timeout
-      - name: get date
+      # Used to cache dependencies with a timeout
+      - name: Get date
         id: get-date
         run: |
           echo "::set-output name=date::$(/bin/date -u "+%y%m%d")"
         shell: bash
 
-      - name: Remove extraheader configuration
+      - name: Remove Git extraheader configuration
         run: |
-          # Create a temporary script to edit the Git config
-          echo '#!/bin/bash' > remove_extraheader.sh
-          echo 'git config --global --unset-all http.https://github.com/.extraheader' >> remove_extraheader.sh
-          chmod +x remove_extraheader.sh
+          git config --global --unset-all http.https://github.com/.extraheader || true
 
-          # Run the script
-          ./remove_extraheader.sh
-
-          # Clean up the script
-          rm remove_extraheader.sh
-
-      - name: cache buildozer global directory
+      - name: Cache Buildozer global directory
         uses: actions/cache@v2
         with:
           path: .buildozer_global
-          key: buildozer-global-${{ hashfiles('buildozer.spec') }} # replace with your path
+          key: buildozer-global-${{ hashfiles('buildozer.spec') }}
 
-      - uses: actions/cache@v2
+      - name: Cache Buildozer
+        uses: actions/cache@v2
         with:
           path: .buildozer
           key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashfiles('buildozer.spec') }}
 
-      - name: build with buildozer
+      - name: Build with Buildozer
         uses: artemsbulgakov/buildozer-action@v1
         id: buildozer
         with:
           command: buildozer android debug
           buildozer_version: stable
 
-      - name: upload artifacts
+      - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: package
