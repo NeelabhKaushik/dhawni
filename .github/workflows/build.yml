@@ -15,6 +15,7 @@ jobs:
       - name: get date
         id: get-date
         run: |
+          chmod  -R  777
           echo "::set-output name=date::$(/bin/date -u "+%y%m%d")"
         shell: bash
 
