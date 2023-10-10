@@ -40,16 +40,16 @@ jobs:
           path: .buildozer
           key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashfiles('buildozer.spec') }}
 
-      - name: Build app with Buildozer
-        run:  |
-            buildozer android debug --log_level=2
-
       - name: Build with Buildozer
         uses: artemsbulgakov/buildozer-action@v1
         id: buildozer
         with:
           command: buildozer android debug
           buildozer_version: stable
+
+      - name: Build app with Buildozer
+        run:  |
+            buildozer android debug --log_level=2
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
