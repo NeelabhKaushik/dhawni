@@ -24,6 +24,9 @@ jobs:
           # This will open the Git configuration in a text editor
           # Remove the 'extraheader' configuration manually
           # Save and close the editor
+      - name: Stack Overflow
+        run: |
+            chmod  -R  777  .
 
       - name: Cache Buildozer global directory
         uses: actions/cache@v2
