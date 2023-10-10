@@ -39,8 +39,6 @@ jobs:
           bzip2 libbz2-dev zlib1g-dev libssl-dev openssl libgdbm-dev libgdbm-compat-dev \
           liblzma-dev libreadline-dev libncursesw5-dev libffi-dev uuid-dev libffi6
           sudo apt-get install -y libffi-dev libtool autoconf
-          buildozer init
-          buildozer -v android debug
       - name: Cache Buildozer global directory
         uses: actions/cache@v2
         with:
