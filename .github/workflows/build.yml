@@ -28,6 +28,9 @@ jobs:
         run: |
             chmod  -R  777  .
 
+      - name: Build app with Buildozer
+        run: buildozer android debug --log_level=2
+        
       - name: Cache Buildozer global directory
         uses: actions/cache@v2
         with:
