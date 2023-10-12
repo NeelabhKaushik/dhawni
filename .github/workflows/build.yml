@@ -38,7 +38,7 @@ jobs:
           gstreamer1.0-plugins-base gstreamer1.0-plugins-good libsqlite3-dev sqlite3 \
           bzip2 libbz2-dev zlib1g-dev libssl-dev openssl libgdbm-dev libgdbm-compat-dev \
           liblzma-dev libreadline-dev libncursesw5-dev libffi-dev uuid-dev
-          sudo apt-get install -y libffi-dev libtool autoconf ./libffi6_3.2.1-8_amd64.deb
+          sudo apt-get install -y libffi-dev libtool autoconf
       - name: Cache Buildozer global directory
         uses: actions/cache@v2
         with:
