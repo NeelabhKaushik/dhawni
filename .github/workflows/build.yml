@@ -28,5 +28,36 @@ jobs:
             gstreamer1.0-plugins-base gstreamer1.0-plugins-good libsqlite3-dev sqlite3 \
             bzip2 libbz2-dev zlib1g-dev libssl-dev openssl libgdbm-dev libgdbm-compat-dev \
             liblzma-dev libreadline-dev libncursesw5-dev libffi-dev uuid-dev \
-            libffi-dev libtool autoconf
+            libffi-dev libtool autoconf \
+            libpoppler-cpp-dev  # Install poppler development files
+
+      # Continue with your existing steps
     
+      - name: Cache Buildozer global directory
+        uses: actions/cache@v2
+        with:
+          path: .buildozer_global
+          key: buildozer-global-${{ hashfiles('buildozer.spec') }}
+
+      - name: Cache Buildozer
+        uses: actions/cache@v2
+        with:
+          path: .buildozer
+          key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashfiles('buildozer.spec') }}
+
+      - name: Build with Buildozer
+        uses: artemsbulgakov/buildozer-action@v1
+        id: buildozer
+        with:
+          command: buildozer android debug
+          buildozer_version: stable
+
+      - name: Build app with Buildozer
+        run:  |
+            buildozer android debug --log_level=2
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: package
+          path: ${{ steps.buildozer.outputs.filename }}
