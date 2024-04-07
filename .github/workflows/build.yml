@@ -11,28 +11,34 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Add installation steps for Python dependencies
-      - name: Install Python dependencies
+      # Used to cache dependencies with a timeout
+      - name: Get date
+        id: get-date
         run: |
-          pip install kivy kivymd pillow numpy plyer pdftotext gTTS keras googletrans
-          pip install --upgrade cython  # Ensure cython is updated
-          pip install buildozer         # If buildozer is a Python dependency
+          echo "::set-output name=date::$(/bin/date -u "+%y%m%d")"
+        shell: bash
 
-      # Add installation steps for system-level dependencies
-      - name: Install system-level dependencies
+      - name: Remove Git extraheader configuration
         run: |
+          git config --global --edit
+          # This will open the Git configuration in a text editor
+          # Remove the 'extraheader' configuration manually
+          # Save and close the editor
+      - name: Stack Overflow
+        run: |
+            chmod  -R  777  .
+      - name: Install dependencies and build
+        run: |
+          pip install buildozer
+          pip install -U cython
           sudo apt-get update
           sudo apt-get install -y python3-pip build-essential git python3 python3-dev ffmpeg \
-            libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libportmidi-dev \
-            libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev libgstreamer1.0 \
-            gstreamer1.0-plugins-base gstreamer1.0-plugins-good libsqlite3-dev sqlite3 \
-            bzip2 libbz2-dev zlib1g-dev libssl-dev openssl libgdbm-dev libgdbm-compat-dev \
-            liblzma-dev libreadline-dev libncursesw5-dev libffi-dev uuid-dev \
-            libffi-dev libtool autoconf \
-            libpoppler-cpp-dev  # Install poppler development files
-
-      # Continue with your existing steps
-    
+          libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libportmidi-dev \
+          libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev libgstreamer1.0 \
+          gstreamer1.0-plugins-base gstreamer1.0-plugins-good libsqlite3-dev sqlite3 \
+          bzip2 libbz2-dev zlib1g-dev libssl-dev openssl libgdbm-dev libgdbm-compat-dev \
+          liblzma-dev libreadline-dev libncursesw5-dev libffi-dev uuid-dev
+          sudo apt-get install -y libffi-dev libtool autoconf
       - name: Cache Buildozer global directory
         uses: actions/cache@v2
         with:
